@@ -10,3 +10,13 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+@import "components/navbar";
+
+/* app/assets/stylesheets/application.scss */
+body {
+  background-image: asset-url("bg.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
