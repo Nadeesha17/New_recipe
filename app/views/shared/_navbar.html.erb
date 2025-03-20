@@ -10,21 +10,14 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
           <%= link_to "Home", root_path, class: "nav-link" %>
-
-       <li class="nav-item">
-  <%= link_to "Recipe Details", recipe_show_path(1), class: "nav-link" %>
-      </li>
-
-        <%# Only show Recipes link if the recipes_path route exists %>
-        <% if Rails.application.routes.named_routes.key?("recipes") %>
-          <li class="nav-item">
-            <%= link_to "Recipes", recipes_path, class: "nav-link" %>
-          </li>
-        <% end %>
-
-        <li class="nav-item">
-
         </li>
+        <li class="nav-item">
+           <%= link_to "Have Dietary Restrictions", recipe_dietary_path, class: "nav-link" %>
+        </li>
+       <li class="nav-item">
+  <%= link_to "Find by Ingredients", recipe_ingredient_path, class: "nav-link" %>
+</li>
+
       </ul>
     </div>
   </div>
