@@ -3,6 +3,7 @@ class RecipesController < ApplicationController
 
 
   def index
+
   end
 
   def show
@@ -17,7 +18,6 @@ class RecipesController < ApplicationController
 
     end
 
-    class RecipesController < ApplicationController
       def dietary
         dietary_type = params[:dietary]
 
@@ -65,7 +65,6 @@ class RecipesController < ApplicationController
         @recipes = []
       end
     end
-  end
 
 
   class RecipesController < ApplicationController
@@ -82,6 +81,29 @@ class RecipesController < ApplicationController
     def ingredient
       if params[:ingredients].present?
         fetch_recipes
+      else
+        @recipes = []
+      end
+    end
+
+
+    def type
+      meal_type = params[:type]
+
+      if meal_type.present?
+        api_key = ENV["SPOONACULAR_API_KEY"]
+        url = "https://api.spoonacular.com/recipes/complexSearch?type=#{meal_type}&apiKey=#{api_key}"
+        response = HTTParty.get(url)
+
+        Rails.logger.info "API Request URL: #{url}"
+        Rails.logger.info "API Response: #{response.body}"
+
+        if response.success? && response.parsed_response["results"].present?
+          @recipes = response.parsed_response["results"]
+        else
+          flash[:alert] = "No recipes found for meal type: #{meal_type} or an error occurred."
+          @recipes = []
+        end
       else
         @recipes = []
       end
@@ -109,28 +131,4 @@ class RecipesController < ApplicationController
         @recipes = []
       end
     end
-
-    private
-
-    def fetch_recipes
-      ingredients = params[:ingredients].split(',').map(&:strip).join(',')
-      api_key = ENV["SPOONACULAR_API_KEY"]
-      url = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=#{ingredients}&apiKey=#{api_key}"
-      response = HTTParty.get(url)
-
-      Rails.logger.info "Fetching Recipes for Ingredients: #{ingredients}"
-      Rails.logger.info "API Response: #{response.body}"
-
-      if response.success?
-        @recipes = response.parsed_response
-      else
-        flash[:alert] = "Error fetching recipes: #{response.message} (Code: #{response.code})"
-        @recipes = []
-      end
-    end
   end
-
-
-
-
-  

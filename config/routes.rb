@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   get "recipes/dietary" => "recipes#dietary", as: :recipe_dietary
   post "fetch_dietary_recipes", to: "recipes#dietary"
 
+   # Route for dietary search
+   get "recipes/type" => "recipes#type", as: :recipe_type
+   post "fetch_type_recipes", to: "recipes#type"
+
   # Routes for recipes
   resources :recipes, only: [:index, :show] do
     collection do
@@ -16,6 +20,3 @@ Rails.application.routes.draw do
     end
   end
 end
-
-
-

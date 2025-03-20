@@ -1,23 +1,50 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3">
   <div class="container">
-    <%= link_to "Recipe Generator", root_path, class: "navbar-brand" %>
+    <!-- Brand Logo -->
+    <%= link_to "Recipe Generator", root_path, class: "navbar-brand fw-bold fs-4 text-primary" %>
 
+    <!-- Mobile Menu Toggle -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Navbar Links -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+        <!-- Home Link -->
         <li class="nav-item">
-          <%= link_to "Home", root_path, class: "nav-link" %>
+          <%= link_to "Home", root_path, class: "nav-link text-dark" %>
         </li>
-        <li class="nav-item">
-           <%= link_to "Have Dietary Restrictions", recipe_dietary_path, class: "nav-link" %>
-        </li>
-       <li class="nav-item">
-  <%= link_to "Find by Ingredients", recipe_ingredient_path, class: "nav-link" %>
-</li>
 
+        <!-- Recipes Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" id="recipesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Find Recipes
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "By Dietary Restrictions", recipe_dietary_path, class: "dropdown-item" %></li>
+            <li><%= link_to "By Ingredients", recipe_ingredient_path, class: "dropdown-item" %></li>
+            <li><%= link_to "By Meal Time", recipe_type_path, class: "dropdown-item" %></li>
+            <li><%= link_to "Explore All Recipes", recipes_path, class: "dropdown-item" %></li>
+          </ul>
+        </li>
+
+        <!-- User Authentication Links -->
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Profile", edit_user_registration_path, class: "nav-link text-dark" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link text-dark" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign In", new_user_session_path, class: "nav-link text-dark" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_user_registration_path, class: "nav-link text-dark" %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
