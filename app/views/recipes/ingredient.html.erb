@@ -1,30 +1,35 @@
-<h1 class="text-center mb-4">Find Recipes by Ingredients</h1>
+<div class="container-fluid d-flex justify-content-start" style="margin-left: 55%; padding-top: 200px;"> <!-- Adjusted padding-top for better vertical spacing -->
+  <div class="col-md-6 col-lg-4 p-4 shadow-lg rounded" style="background-color: #f8f9fa;">
+    <h1 class="text-center mb-4">Find Recipes by Ingredients</h1>
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <%= form_with url: recipe_ingredient_path, method: :get, local: true do |f| %>
-        <div class="mb-3">
-          <label for="ingredients" class="form-label">Enter Ingredients (comma separated):</label>
-          <%= f.text_field :ingredients, placeholder: "e.g., chicken, onion, garlic", class: "form-control" %>
-        </div>
-        <%= f.submit "Search", class: "btn btn-primary w-100" %>
-      <% end %>
-    </div>
+    <%= form_with url: recipe_ingredient_path, method: :get, local: true do |f| %>
+      <div class="mb-4">
+        <label class="form-label fw-bold">Enter Ingredients (comma separated):</label>
+        <%= f.text_field :ingredients, placeholder: "e.g., chicken, onion, garlic", class: "form-control p-3 border-dark rounded-3", required: true %>
+        <small class="text-muted">Separate multiple ingredients with commas.</small>
+      </div>
+      <div class="d-grid">
+        <%= f.submit "Search Recipes", class: "btn btn-primary btn-lg rounded-pill" %>
+      </div>
+    <% end %>
   </div>
 </div>
 
+
 <% if @recipes.present? %>
-  <h2 class="text-center my-4">Recipes Found</h2>
+  <h2 class="text-center my-5">Recipes Found</h2>
   <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
       <% @recipes.each do |recipe| %>
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <img src="<%= recipe['image'] %>" class="card-img-top" alt="<%= recipe['title'] %>" />
-            <div class="card-body">
-              <h5 class="card-title"><%= recipe['title'] %></h5>
-              <p class="card-text"><%= recipe['instructions'] %></p>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card shadow-sm h-100" style="min-height: 350px;">
+
+            <img src="<%= recipe['image'] %>" class="card-img-top" alt="<%= recipe['title'] %>" style="height: 250px; object-fit: cover;">
+            <div class="card-body d-flex flex-column justify-content-between">
+
+              <h5 class="card-title text-center fw-bold"><%= recipe['title'] %></h5>
+              <p class="card-text text-center mb-2" style="font-size: 0.9rem;">Click below for details</p>
+              <%= link_to "View Details", recipe_path(recipe['id']), class: "btn btn-primary w-100 mt-2" %>
             </div>
           </div>
         </div>
@@ -32,5 +37,5 @@
     </div>
   </div>
 <% else %>
-  <p class="text-center">No recipes found. Try different ingredients.</p>
+  <p class="text-center text-danger mt-4"></p>
 <% end %>

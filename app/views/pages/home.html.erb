@@ -1,15 +1,12 @@
 <div class="container-fluid d-flex align-items-center" style="height: 100vh; background-image: url('your-background-image-url.jpg'); background-size: cover; background-position: center;">
   <div class="row w-100">
-    <!-- Left Side: Background Image -->
-    <div class="col-md-6"></div>
 
-    <!-- Right Side: Content Box -->
-    <div class="col-md-5 offset-md-1 d-flex flex-column justify-content-center p-5 bg-white rounded shadow-lg" style="background: rgba(255, 255, 255, 0.85);">
-      <h1 class="display-4 text-center mb-3">Welcome to Recipe Generator</h1>
-      <p class="text-center mb-4">Discover and create amazing recipes effortlessly!</p>
+    <div class="col-md-6 d-flex flex-column justify-content-center p-5 bg-white rounded-4 shadow-lg" style="background: rgba(255, 255, 255, 0.9); border: 2px solid #ddd; margin-left: 50%;">
+      <h1 class="display-3 text-center mb-4 fw-bold" style="color: #2c3e50;">All Your Favorite Recipes in One Place Discover, Create, and Savor</h1>
+      <p class="text-center mb-5 fs-5 text-muted">Discover and create amazing recipes effortlessly!</p>
 
       <div class="text-center">
-        <%= link_to "Explore Recipes", recipes_path, class: "btn btn-primary btn-lg px-4 py-2" %>
+        <%= link_to "Explore Recipes", recipes_path, class: "btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-sm" %>
       </div>
     </div>
   </div>
