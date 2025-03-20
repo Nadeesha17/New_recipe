@@ -11,6 +11,7 @@
 @import "components/index";
 @import "pages/index";
 @import "components/navbar";
+@import "recipes";
 
 /* app/assets/stylesheets/application.scss */
 body {
@@ -19,4 +20,14 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
+}
+@import "bootstrap";
+
+body {
+  background-color: #f8f9fa;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }

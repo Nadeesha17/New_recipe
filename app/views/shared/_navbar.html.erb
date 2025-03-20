@@ -10,7 +10,10 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
           <%= link_to "Home", root_path, class: "nav-link" %>
-        </li>
+
+       <li class="nav-item">
+  <%= link_to "Recipe Details", recipe_show_path(1), class: "nav-link" %>
+      </li>
 
         <%# Only show Recipes link if the recipes_path route exists %>
         <% if Rails.application.routes.named_routes.key?("recipes") %>

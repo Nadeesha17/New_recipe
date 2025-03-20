@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row justify-content-end">
+    <div class="col-md-6 text-end">
+      <h1><%= @recipe['title'] %></h1>
+
+      <% if @recipe['image'].present? %>
+        <img src="<%= @recipe['image'] %>" alt="<%= @recipe['title'] %>" class="img-fluid">
+      <% else %>
+        <p>No image available</p>
+      <% end %>
+
+      <h3>Description</h3>
+      <p class="text-justify"><%= @recipe['summary'].html_safe %></p>
+
+      <h3>Ingredients</h3>
+      <ul class="text-justify">
+        <% if @recipe['extendedIngredients'].present? %>
+          <% @recipe['extendedIngredients'].each do |ingredient| %>
+            <li><%= ingredient['original'] %></li>
+          <% end %>
+        <% else %>
+          <p>No ingredients available.</p>
+        <% end %>
+      </ul>
+
+      <h3>Instructions</h3>
+      <p class="text-justify"><%= @recipe['instructions'].html_safe %></p>
+    </div>
+  </div>
+</div>
