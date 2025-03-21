@@ -3,7 +3,16 @@ class RecipesController < ApplicationController
 
 
   def index
+    api_key = ENV["SPOONACULAR_API_KEY"]
+    url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}"
+    response = HTTParty.get(url)
 
+    if response.success?
+      @recipes = response.parsed_response["results"]
+    else
+      flash[:alert] = "Error fetching recipes: #{response.message}"
+      @recipes = []
+    end
   end
 
   def show
@@ -12,7 +21,6 @@ class RecipesController < ApplicationController
     api_key = ENV["SPOONACULAR_API_KEY"]
     url = "https://api.spoonacular.com/recipes/#{recipe_id}/information?apiKey=#{api_key}"
     response = HTTParty.get(url)
-
     if response.success?
       @recipe = response.parsed_response
     else
@@ -132,7 +140,6 @@ class RecipesController < ApplicationController
     def fetch_recipes
       ingredients = params[:ingredients]
       ingredients = ingredients.split(',').map(&:strip).join(',')
-
       Rails.logger.info "Ingredients: #{ingredients}"
 
       # Spoonacular API key
@@ -141,6 +148,7 @@ class RecipesController < ApplicationController
 
       # Get response from Spoonacular API
       response = HTTParty.get(url)
+
 
       Rails.logger.info "API Response: #{response.body}"
 

@@ -52,7 +52,6 @@ gem "sassc-rails"
 
 group :development, :test do
   gem "dotenv-rails"
-  gem 'byebug'
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
 end
@@ -66,6 +65,9 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+end
+group :development, :test do
+  gem 'byebug'
 end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]

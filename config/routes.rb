@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
 
+# Define a route for the recipes index page
+get 'recipes', to: 'recipes#index', as: :recipe
+
+
+
   # Route for ingredient form page
   get "recipes/ingredient" => "recipes#ingredient", as: :recipe_ingredient
   post 'fetch_recipes', to: 'recipes#ingredient'
@@ -22,7 +27,7 @@ Rails.application.routes.draw do
   post "fetch_cooking_recipes", to: "recipes#cooking"
 
   # Routes for recipes
-  resources :recipes, only: [:index, :show] do
+  resources :recipes, only: [:index, :show, :new, :create] do
     collection do
       post 'fetch_recipes', to: 'recipes#fetch_recipes', as: :fetch_recipes
     end
