@@ -49,6 +49,59 @@ class RecipesController < ApplicationController
           @recipes = []
         end
       end
+      def cuisine
+        cuisine_type = params[:cuisine]
+
+        if cuisine_type.present?
+          api_key = ENV["SPOONACULAR_API_KEY"]
+          url = "https://api.spoonacular.com/recipes/complexSearch?cuisine=#{cuisine_type}&apiKey=#{api_key}"
+          response = HTTParty.get(url)
+
+          if response.success?
+            @recipes = response.parsed_response["results"]
+          else
+            flash[:alert] = "Error fetching cuisine recipes: #{response.message} (Code: #{response.code})"
+            @recipes = []
+          end
+        else
+          @recipes = []
+        end
+      end
+
+      def cooking
+        cooking_methods = params[:cooking].to_s.downcase.split(",").map(&:strip)  # Get user input and clean it up
+
+        if cooking_methods.any?
+          api_key = ENV["SPOONACULAR_API_KEY"]
+          url = "https://api.spoonacular.com/recipes/complexSearch?instructionsRequired=true&apiKey=#{api_key}"
+          response = HTTParty.get(url)
+
+          if response.success?
+            # Filter recipes based on cooking methods in instructions
+            @recipes = response.parsed_response["results"].select do |recipe|
+              instructions_url = "https://api.spoonacular.com/recipes/#{recipe['id']}/analyzedInstructions?apiKey=#{api_key}"
+              instructions_response = HTTParty.get(instructions_url)
+
+              if instructions_response.success?
+                steps = instructions_response.parsed_response.flat_map { |instruction| instruction['steps'].map { |step| step['step'].downcase } }
+                cooking_methods.any? { |method| steps.any? { |step| step.include?(method) } }
+              else
+                false
+              end
+            end
+          else
+            flash[:alert] = "Error fetching recipes: #{response.message}"
+            @recipes = []
+          end
+        else
+          @recipes = []
+        end
+      end
+
+
+
+
+
       def type
         meal_type = params[:type]
 

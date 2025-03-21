@@ -9,9 +9,17 @@ Rails.application.routes.draw do
   get "recipes/dietary" => "recipes#dietary", as: :recipe_dietary
   post "fetch_dietary_recipes", to: "recipes#dietary"
 
-   # Route for dietary search
+  # Route for cuisine search
+  get "recipes/cuisine" => "recipes#cuisine", as: :recipe_cuisine
+  post "fetch_cuisine_recipes", to: "recipes#cuisine"
+
+   # Route for type search
    get "recipes/type" => "recipes#type", as: :recipe_type
    post "fetch_type_recipes", to: "recipes#type"
+
+   # Route for cooking search
+  get "recipes/cooking" => "recipes#cooking", as: :recipe_cooking
+  post "fetch_cooking_recipes", to: "recipes#cooking"
 
   # Routes for recipes
   resources :recipes, only: [:index, :show] do
