@@ -15,19 +15,62 @@ class RecipesController < ApplicationController
     end
   end
 
+
+  def new
+    @recipe = Recipe.new
+  end
+
+  def create
+    @recipe = Recipe.new(recipe_params)
+
+    if @recipe.save
+      if params[:recipe][:ingredients].present?
+        ingredient_names = params[:recipe][:ingredients].split(',').map(&:strip)
+
+        ingredient_names.each do |name|
+          ingredient = Ingredient.find_or_create_by(name: name)
+          RecipeIngredient.create!(recipe: @recipe, ingredient: ingredient)
+        end
+      end
+
+      @recipe.image.attach(params[:recipe][:image]) if params[:recipe][:image].present?
+      redirect_to added_recipes_recipes_path, notice: 'Recipe was successfully added!'
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+
+
+  def added_recipes
+    @recipes = Recipe.includes(:ingredients).order(created_at: :desc)
+  end
+
+
   def show
     recipe_id = params[:id]
 
-    api_key = ENV["SPOONACULAR_API_KEY"]
-    url = "https://api.spoonacular.com/recipes/#{recipe_id}/information?apiKey=#{api_key}"
-    response = HTTParty.get(url)
-    if response.success?
-      @recipe = response.parsed_response
+    # Check if the recipe exists in the local database
+    @recipe = Recipe.find_by(id: recipe_id)
+
+    if @recipe
+      # Show locally saved recipe
+      @ingredients = @recipe.ingredients.pluck(:name)
     else
-      flash[:alert] = "Error fetching recipe details: #{response.message} (Code: #{response.code})"
-      @recipe = {}
+      # Fetch from Spoonacular API
+      api_key = ENV["SPOONACULAR_API_KEY"]
+      url = "https://api.spoonacular.com/recipes/#{recipe_id}/information?apiKey=#{api_key}"
+      response = HTTParty.get(url)
+
+      if response.success?
+        @recipe = response.parsed_response
+      else
+        flash[:alert] = "Error fetching recipe details: #{response.message} (Code: #{response.code})"
+        @recipe = {}
+      end
     end
   end
+
 
 
 
@@ -57,6 +100,7 @@ class RecipesController < ApplicationController
           @recipes = []
         end
       end
+
       def cuisine
         cuisine_type = params[:cuisine]
 
@@ -129,7 +173,7 @@ class RecipesController < ApplicationController
         end
       end
 
-    end
+
 
 
 
@@ -160,3 +204,21 @@ class RecipesController < ApplicationController
         @recipes = []
       end
     end
+    def attach_spoonacular_image(recipe)
+      api_key = ENV["SPOONACULAR_API_KEY"]
+      query = recipe.name.present? ? recipe.name : recipe.ingredients.map(&:name).join(", ")
+      url = "https://api.spoonacular.com/recipes/complexSearch?query=#{query}&apiKey=#{api_key}&number=1"
+      response = HTTParty.get(url)
+
+      if response.success? && response.parsed_response["results"].present?
+        image_url = response.parsed_response["results"].first["image"]
+        downloaded_image = URI.open(image_url)
+        recipe.image.attach(io: downloaded_image, filename: "#{recipe.name}_image.jpg")
+      end
+    end
+    def recipe_params
+      params.require(:recipe).permit(:name, :instructions, :image)
+    end
+
+
+  end

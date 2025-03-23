@@ -1,36 +1,52 @@
-<div class="container mt-5">
-  <div class="card shadow-lg">
-    <div class="card-header bg-primary text-white">
-      <h2 class="mb-0 text-center"><%= @recipe['title'] %></h2>
-    </div>
-    <div class="card-body">
-      <% if @recipe['image'] %>
-        <div class="text-center mb-4">
-          <img src="<%= @recipe['image'] %>" alt="<%= @recipe['title'] %>" class="img-fluid rounded">
-        </div>
-      <% end %>
+<div class="container my-5 p-4 shadow-lg rounded" style="background-color: #f8f9fa;">
+  <!-- Recipe Title -->
+  <h2 class="text-center mb-4">
+    <% if @recipe.is_a?(Recipe) %>
+      <%= @recipe.name %>
+    <% else %>
+      <%= @recipe['title'] %>
+    <% end %>
+  </h2>
 
-      <h4>Recipe Details</h4>
-      <ul class="list-group mb-4">
-        <li class="list-group-item"><strong>Ready in:</strong> <%= @recipe['readyInMinutes'] %> minutes</li>
-        <li class="list-group-item"><strong>Servings:</strong> <%= @recipe['servings'] %></li>
-      </ul>
+  <!-- Recipe Image -->
+  <div class="text-center mb-4">
+    <% if @recipe.is_a?(Recipe) %>
+      <img src="<%= @recipe.image_url %>" alt="<%= @recipe.name %>" class="img-fluid rounded" style="max-width: 400px;">
+    <% else %>
+      <img src="<%= @recipe['image'] %>" alt="<%= @recipe['title'] %>" class="img-fluid rounded" style="max-width: 400px;">
+    <% end %>
+  </div>
 
-      <h4>Ingredients:</h4>
-      <% if @recipe['extendedIngredients'] %>
-        <ul class="list-group mb-4">
-          <% @recipe['extendedIngredients'].each do |ingredient| %>
-            <li class="list-group-item"><%= ingredient['original'] %></li>
-          <% end %>
-        </ul>
+  <!-- Ingredients Section -->
+  <div class="mb-4">
+    <h4 class="fw-bold">Ingredients:</h4>
+    <ul class="list-group list-group-flush">
+      <% if @recipe.is_a?(Recipe) %>
+        <% @recipe.ingredients.each do |ingredient| %>
+          <li class="list-group-item"><%= ingredient.name %></li>
+        <% end %>
       <% else %>
-        <p>No ingredients available.</p>
+        <% @recipe['extendedIngredients']&.each do |ingredient| %>
+          <li class="list-group-item"><%= ingredient['name'] %></li>
+        <% end %>
       <% end %>
+    </ul>
+  </div>
 
-      <h4>Instructions:</h4>
-      <p class="mb-4"><%= @recipe['instructions'].presence || "Instructions not available." %></p>
+  <!-- Instructions Section -->
+  <div>
+    <h4 class="fw-bold">Instructions:</h4>
+    <p class="text-justify" style="line-height: 1.7;">
+      <% if @recipe.is_a?(Recipe) %>
+        <%= @recipe.instructions %>
+      <% else %>
+        <%= @recipe['instructions'].presence || "Instructions not available." %>
+      <% end %>
+    </p>
+  </div>
 
-      <a href="/" class="btn btn-secondary">Back to Recipes</a>
-    </div>
+  <!-- Back Button -->
+  <div class="text-center mt-4">
+    <%= link_to 'Back to Recipes', recipes_path, class: "btn btn-secondary rounded-pill px-4 py-2" %>
   </div>
 </div>

@@ -1,46 +1,41 @@
-<!-- app/views/recipes/new.html.erb -->
-<div class="container">
-  <h2>Create a New Recipe</h2>
+<div class="container my-5 p-4 shadow-lg rounded" style="background-color: #f8f9fa; max-width: 600px;">
+  <!-- Form Title -->
+  <h2 class="text-center mb-4">Add a New Recipe</h2>
 
-  <%= form_with model: @recipe, local: true do |form| %>
-
-    <div class="form-group">
-      <%= form.label :name, "Recipe Name" %>
-      <%= form.text_field :name, class: "form-control" %>
+  <%= form_with model: @recipe, local: true, class: "needs-validation" do |form| %>
+    <!-- Recipe Name -->
+    <div class="mb-3">
+      <%= form.label :name, "Recipe Name", class: "form-label fw-bold" %>
+      <%= form.text_field :name, class: "form-control p-2 rounded-3", placeholder: "Enter recipe name", required: true %>
     </div>
 
-    <div class="form-group">
-      <%= form.label :ingredients, "Ingredients" %>
-      <%= form.text_area :ingredients, class: "form-control", rows: 3 %>
+    <!-- Ingredients -->
+    <div class="mb-3">
+      <%= form.label :ingredients, "Ingredients (comma-separated)", class: "form-label fw-bold" %>
+      <%= form.text_field :ingredients, class: "form-control p-2 rounded-3", placeholder: "e.g., tomatoes, onions, garlic", required: true %>
+      <small class="text-muted">Separate ingredients with commas.</small>
     </div>
 
-    <div class="form-group">
-      <%= form.label :instructions, "Instructions" %>
-      <%= form.text_area :instructions, class: "form-control", rows: 5 %>
+    <!-- Instructions -->
+    <div class="mb-3">
+      <%= form.label :instructions, "Instructions", class: "form-label fw-bold" %>
+      <%= form.text_area :instructions, class: "form-control p-3 rounded-3", placeholder: "Step-by-step instructions", rows: 5, required: true %>
     </div>
 
-    <div class="form-group">
-      <%= form.label :meal_type, "Meal Type (e.g., Breakfast, Dinner)" %>
-      <%= form.text_field :meal_type, class: "form-control" %>
+    <!-- Recipe Image -->
+    <div class="mb-4">
+      <%= form.label :image, "Recipe Image", class: "form-label fw-bold" %>
+      <%= form.file_field :image, class: "form-control p-2 rounded-3" %>
     </div>
 
-    <div class="form-group">
-      <%= form.label :cuisine, "Cuisine (e.g., Italian, Chinese)" %>
-      <%= form.text_field :cuisine, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :cooking_method, "Cooking Method (e.g., Fry, Boil)" %>
-      <%= form.text_field :cooking_method, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :dietary_restrictions, "Dietary Restrictions (e.g., Vegan, Gluten-Free)" %>
-      <%= form.text_field :dietary_restrictions, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= form.submit "Create Recipe", class: "btn btn-primary" %>
+    <!-- Submit Button -->
+    <div class="d-grid">
+      <%= form.submit "Add Recipe", class: "btn btn-success btn-lg rounded-pill" %>
     </div>
   <% end %>
+
+  <!-- Back Link -->
+  <div class="text-center mt-3">
+    <%= link_to 'Back to Recipes', recipes_path, class: "btn btn-secondary rounded-pill" %>
+  </div>
 </div>

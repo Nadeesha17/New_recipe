@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
 # Define a route for the recipes index page
-get 'recipes', to: 'recipes#index', as: :recipe
+#get 'recipes', to: 'recipes#index', as: :recipe
 
 
 
@@ -30,6 +30,7 @@ get 'recipes', to: 'recipes#index', as: :recipe
   resources :recipes, only: [:index, :show, :new, :create] do
     collection do
       post 'fetch_recipes', to: 'recipes#fetch_recipes', as: :fetch_recipes
+      get 'added_recipes', to: 'recipes#added_recipes', as: :added_recipes
     end
   end
 end

@@ -1,0 +1,22 @@
+<h2>Added Recipes</h2>
+
+<ul>
+  <% @recipes.each do |recipe| %>
+    <li>
+      <strong>Name:</strong> <%= recipe.name %><br>
+      <strong>Instructions:</strong> <%= recipe.instructions %><br>
+      <strong>Ingredients:</strong>
+      <% if recipe.ingredients.any? %>
+        <%= recipe.ingredients.map(&:name).join(', ') %>
+      <% else %>
+        No ingredients added.
+      <% end %>
+      <% if recipe.image.attached? %>
+        <br><strong>Image:</strong><br>
+        <%= image_tag recipe.image, style: "max-width: 200px; height: auto;" %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Add Another Recipe', new_recipe_path %>
