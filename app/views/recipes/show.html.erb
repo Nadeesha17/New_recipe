@@ -11,7 +11,11 @@
   <!-- Recipe Image -->
   <div class="text-center mb-4">
     <% if @recipe.is_a?(Recipe) %>
-      <img src="<%= @recipe.image_url %>" alt="<%= @recipe.name %>" class="img-fluid rounded" style="max-width: 400px;">
+      <% if @recipe.image.attached? %>
+        <%= image_tag @recipe.image, class: "img-fluid rounded", style: "max-width: 400px;" %>
+      <% else %>
+        <p>No image available for this recipe.</p>
+      <% end %>
     <% else %>
       <img src="<%= @recipe['image'] %>" alt="<%= @recipe['title'] %>" class="img-fluid rounded" style="max-width: 400px;">
     <% end %>

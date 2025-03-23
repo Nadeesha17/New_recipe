@@ -1,22 +1,22 @@
-<h2>Added Recipes</h2>
+<h2 class="text-center mb-4">Recently Added Recipes</h2>
 
-<ul>
-  <% @recipes.each do |recipe| %>
-    <li>
-      <strong>Name:</strong> <%= recipe.name %><br>
-      <strong>Instructions:</strong> <%= recipe.instructions %><br>
-      <strong>Ingredients:</strong>
-      <% if recipe.ingredients.any? %>
-        <%= recipe.ingredients.map(&:name).join(', ') %>
-      <% else %>
-        No ingredients added.
-      <% end %>
-      <% if recipe.image.attached? %>
-        <br><strong>Image:</strong><br>
-        <%= image_tag recipe.image, style: "max-width: 200px; height: auto;" %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-
-<%= link_to 'Add Another Recipe', new_recipe_path %>
+<% if @recipes.any? %>
+  <div class="row">
+    <% @recipes.each do |recipe| %>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm" style="height: 350px;">
+          <% if recipe.image.attached? %>
+            <%= image_tag recipe.image, class: "card-img-top", style: "height: 150px; object-fit: cover;" %>
+          <% end %>
+          <div class="card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title"><%= recipe.name %></h5>
+            <p class="card-text"><strong>Ingredients:</strong> <%= recipe.ingredients.map(&:name).join(", ") %></p>
+            <%= link_to 'View Details', recipe_path(recipe), class: "btn btn-primary mt-auto" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-muted text-center">No recipes added yet.</p>
+<% end %>
