@@ -23,13 +23,16 @@ class RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
 
+    p @recipe.valid?
     if @recipe.save
       if params[:recipe][:ingredients].present?
         ingredient_names = params[:recipe][:ingredients].split(',').map(&:strip)
 
         ingredient_names.each do |name|
           ingredient = Ingredient.find_or_create_by(name: name)
-          RecipeIngredient.create!(recipe: @recipe, ingredient: ingredient)
+          p ingredient
+          ri = RecipeIngredient.create!(recipe: @recipe, ingredient: ingredient)
+          p ri
         end
       end
 
