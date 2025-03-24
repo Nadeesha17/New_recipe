@@ -3,7 +3,7 @@ class Recipe < ApplicationRecord
   has_many :ingredients, through: :recipe_ingredients
   has_many :comments
   has_one_attached :image
-  serialize :ingredients, JSON
+  # serialize :ingredients, JSON
   validates :name, presence: true
   # validates :ingredients, presence: true, if: -> { ingredients.any? }
 
