@@ -22,16 +22,16 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
+    if params[:recipe][:ingredients].present?
+      ingredient_names = params[:recipe][:ingredients].split(',').map(&:strip)
+
+      ingredient_names.each do |name|
+        ingredient = Ingredient.find_or_create_by(name: name)
+        RecipeIngredient.create!(recipe: @recipe, ingredient: ingredient)
+      end
+    end
 
     if @recipe.save
-      if params[:recipe][:ingredients].present?
-        ingredient_names = params[:recipe][:ingredients].split(',').map(&:strip)
-
-        ingredient_names.each do |name|
-          ingredient = Ingredient.find_or_create_by(name: name)
-          RecipeIngredient.create!(recipe: @recipe, ingredient: ingredient)
-        end
-      end
 
       @recipe.image.attach(params[:recipe][:image]) if params[:recipe][:image].present?
       redirect_to added_recipes_recipes_path, notice: 'Recipe was successfully added!'
