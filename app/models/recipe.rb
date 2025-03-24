@@ -5,7 +5,7 @@ class Recipe < ApplicationRecord
   has_one_attached :image
   serialize :ingredients, JSON
   validates :name, presence: true
-  validates :ingredients, presence: true, if: -> { ingredients.any? }
+  # validates :ingredients, presence: true, if: -> { ingredients.any? }
 
   validates :instructions, presence: true
 end
