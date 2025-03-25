@@ -1,20 +1,205 @@
-.card {
+// Global Variables
+$primary-color: #34db5e; // Primary color for the button
+$btn-padding: 20px 40px; // Button padding for better look
+
+
+// Global button styles for Search Recipes button
+$btn-primary-bg: #249736;
+$btn-primary-hover-bg: #205922;
+$btn-text-color: white;
+$btn-border-radius: 30px;
+
+
+
+// Container and Background
+.container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45vh;
+  background-image: url('your-background-image-url.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+// Home Content Section
+.home-content {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #ddd;
+  padding: 5rem;
+  border-radius: 20px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  // Title Styles
+  .home-title {
+    color: #2c3e50;
+    font-size: 3rem; // Adjust size for larger screens
+    font-weight: bold;
+    line-height: 1.2;
+  }
+
+  // Subtitle Styles
+  .home-subtitle {
+    color: #7f8c8d;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  // Button Styles
+  .explore-btn {
+    background-color: $primary-color;
+    color: white;
+    font-size: 1.2rem;
+    padding: $btn-padding;
+    border-radius: 50px;
+    transition: background-color 0.3s, transform 0.3s;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      transform: translateY(-5px);
+    }
+
+    &:active {
+      transform: translateY(2px);
+    }
+  }
+}
+
+// Media Queries for Responsiveness
+
+@media (max-width: 992px) {
+  .home-content {
+    padding: 3rem;
+  }
+
+  .home-title {
+    font-size: 2.5rem; // Adjust title font size for medium screens
+  }
+
+  .home-subtitle {
+    font-size: 1.1rem; // Adjust subtitle font size for medium screens
+  }
+}
+
+@media (max-width: 767px) {
+  .home-content {
+    padding: 2rem;
+  }
+
+  .home-title {
+    font-size: 2rem; // Adjust title font size for small screens
+  }
+
+  .home-subtitle {
+    font-size: 1rem; // Adjust subtitle font size for small screens
+  }
+
+  .explore-btn {
+    font-size: 1rem; // Adjust button font size for small screens
+    padding: 15px 20px; // Adjust button padding for small screens
+  }
+}
+
+/* Styling for the Explore Recipes Section */
+.explore-recipes-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
+.recipes-found-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #34495e;
+  margin-top: 1rem;
+}
+
+/* Card Styling */
+.recipe-card {
+  height: 100%; /* Ensure all cards take up the same height */
+  display: flex;
+  flex-direction: column;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  background-color: #f8f9fa;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
   &:hover {
     transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
-  img {
-    height: 200px;
-    object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+  /* Image Styling */
+  .card-img-top {
+    object-fit: cover; /* Ensure image covers the card's width and height */
+    height: 200px; /* Set a fixed height for images */
   }
 
-  .card-body {
+  /* Card Body Styling */
+  .recipe-card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1; /* Ensure that the body takes the remaining space */
     padding: 15px;
+  }
+
+  /* Title Styling */
+  .recipe-card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #34495e;
+  }
+
+  /* Text Styling */
+  .recipe-card-text {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Styling for the 'See More' link */
+.btn-see-more {
+  display: inline-block; /* Make the link behave like a button */
+  color: #3498db; /* Primary color */
+  font-weight: bold;
+  font-size: 1rem;
+  text-decoration: none; /* Remove underline */
+  padding: 10px 20px; /* Add padding like a button */
+  border-radius: 25px; /* Rounded corners */
+  border: 2px solid #3498db; /* Border matching the text color */
+  background-color: transparent; /* Transparent background */
+  transition: all 0.3s ease; /* Smooth transition for hover effect */
+  margin-top: 10px;
+  text-align: center;
+
+  &:hover {
+    background-color: #388e5f; /* On hover, change background color */
+    color: white; /* Change text color to white */
+    transform: translateY(-3px); /* Add a slight lift effect */
+    text-decoration: none; /* Make sure there's no underline */
+  }
+
+  &:active {
+    transform: translateY(1px); /* Add a small effect when clicked */
+  }
+}
+
+
+
+/* Ensure cards are responsive */
+@media (max-width: 992px) {
+  .recipe-card {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .recipe-card {
+    margin-bottom: 20px;
   }
 }

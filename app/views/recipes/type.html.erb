@@ -9,7 +9,7 @@
         <small class="text-muted">Separate multiple meal types with commas.</small>
       </div>
       <div class="d-grid">
-        <%= f.submit "Search Recipes", class: "btn btn-primary btn-lg rounded-pill" %>
+        <%= f.submit "Search Recipes", class: "btn explore-btn btn-lg px-5 py-3 rounded-pill shadow-sm" %>
       </div>
     <% end %>
   </div>
@@ -27,7 +27,7 @@
             <div class="card-body d-flex flex-column justify-content-between">
               <h5 class="card-title text-center fw-bold"><%= recipe['title'] %></h5>
               <p class="card-text text-center mb-2" style="font-size: 0.9rem;">Click below for details</p>
-              <%= link_to "View Details", recipe_path(id: recipe['id']), class: "btn btn-primary w-100 mt-2" %>
+              <%= link_to "View Details", recipe_path(id: recipe['id']), class: "btn-see-more" %>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-<div class="container my-5 p-4 shadow-lg rounded" style="background-color: #f8f9fa;">
+<div class="container my-5 p-4 shadow-lg rounded" style="background-color: #f8f9fa; max-width: 800px; margin-left: 630px; margin-right: auto;">
   <!-- Recipe Title -->
   <h2 class="text-center mb-4">
     <% if @recipe.is_a?(Recipe) %>
@@ -12,12 +12,12 @@
   <div class="text-center mb-4">
     <% if @recipe.is_a?(Recipe) %>
       <% if @recipe.image.attached? %>
-        <%= image_tag @recipe.image, class: "img-fluid rounded", style: "max-width: 400px;" %>
+        <%= image_tag @recipe.image, class: "img-fluid rounded", style: "width: 100%; height: auto;" %>
       <% else %>
         <p>No image available for this recipe.</p>
       <% end %>
     <% else %>
-      <img src="<%= @recipe['image'] %>" alt="<%= @recipe['title'] %>" class="img-fluid rounded" style="max-width: 400px;">
+      <img src="<%= @recipe['image'] %>" alt="<%= @recipe['title'] %>" class="img-fluid rounded" style="width: 100%; height: auto;">
     <% end %>
   </div>
 
@@ -51,6 +51,6 @@
 
   <!-- Back Button -->
   <div class="text-center mt-4">
-    <%= link_to 'Back to Recipes', recipes_path, class: "btn btn-secondary rounded-pill px-4 py-2" %>
+    <%= link_to '<<', recipes_path, class: "btn-see-more" %>
   </div>
 </div>

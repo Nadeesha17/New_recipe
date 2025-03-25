@@ -7,27 +7,45 @@
 @import "bootstrap";
 @import "font-awesome";
 
+@import "bootstrap";
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
 @import "components/navbar";
 @import "recipes";
 
-/* app/assets/stylesheets/application.scss */
+
+
+
+/* Reset body margin and padding */
 body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa; /* Keep your body background color here */
   background-image: asset-url("bg.jpeg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
 }
-@import "bootstrap";
 
-body {
-  background-color: #f8f9fa;
-}
+
 
 .card {
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+
+  /* If you want to adjust the container inside the navbar */
+  .container-fluid {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    height: 10vh;
+  }
 }
