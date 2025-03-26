@@ -1,0 +1,53 @@
+
+
+// Import Google fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Work+Sans:400,700&display=swap');
+
+// Define fonts for body and headers
+// $body-font: "Work Sans", "Helvetica", "sans-serif";
+// $headers-font: "Nunito", "Helvetica", "sans-serif";
+
+// To use a font file (.woff) uncomment following lines
+// @font-face {
+//   font-family: "Font Name";
+//   src: font-url('FontFile.eot');
+//   src: font-url('FontFile.eot?#iefix') format('embedded-opentype'),
+//        font-url('FontFile.woff') format('woff'),
+//        font-url('FontFile.ttf') format('truetype')
+// }
+// $my-font: "Font Name";
+
+
+
+
+// Define fonts for body and headers
+$body-font: "Nunito", "Helvetica", "sans-serif"; // Set Nunito as the body font
+$headers-font: "Nunito", "Helvetica", "sans-serif"; // Set Nunito for headers as well
+
+// Apply the font globally to the entire website
+body {
+  font-family: $body-font;
+  margin: 0;
+  padding: 0;
+}
+
+// For headers, if you want specific control over them
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headers-font;
+  font-weight: 700; // You can customize the weight as needed
+}
+
+// Example of customizing specific text elements
+p {
+  font-family: $body-font;
+  font-weight: 400; // Regular weight
+}
+<<<<<<< HEAD
+
+.page-container {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
+}
+=======
+>>>>>>> e369bf734e4ecf6a54ce93069c870d281e5fba03
