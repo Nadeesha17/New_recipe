@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_23_102013) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_26_100551) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_23_102013) do
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "recipe_id", null: false
-    t.text "content"
+    t.text "comment"
     t.integer "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -57,6 +57,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_23_102013) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text "user_question"
+    t.text "ai_answer"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "ai_response"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
@@ -71,6 +81,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_23_102013) do
 
   create_table "recipes", force: :cascade do |t|
     t.string "name"
+    t.text "ingredients"
     t.text "instructions"
     t.string "meal_type"
     t.string "cuisine"
@@ -79,7 +90,27 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_23_102013) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image"
-    t.text "ingredients"
+  end
+
+  create_table "solid_cable_messages", force: :cascade do |t|
+    t.string "channel_name"
+    t.text "message_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "channel"
+  end
+
+  create_table "solid_queue_jobs", force: :cascade do |t|
+    t.string "queue_name"
+    t.string "job_class"
+    t.text "arguments"
+    t.datetime "scheduled_at"
+    t.datetime "performed_at"
+    t.datetime "failed_at"
+    t.integer "retry_attempts", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "active_job_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -96,6 +127,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_23_102013) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "recipes"
   add_foreign_key "comments", "users"
+  add_foreign_key "questions", "users"
   add_foreign_key "recipe_ingredients", "ingredients"
   add_foreign_key "recipe_ingredients", "recipes"
 end

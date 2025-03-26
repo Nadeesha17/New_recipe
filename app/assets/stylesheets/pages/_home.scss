@@ -1,1 +1,47 @@
 // Specific CSS for your home-page
+// Define the color scheme
+$primary-color: #2a823a; // Bright blue
+$hover-color: #2cd957; // Darker shade for hover effect
+$button-text-color: #fff; // Text color for contrast
+$button-border-radius: 50px; // Rounded button corners
+
+// Button Styling
+.explore-btn {
+  background: linear-gradient(45deg, #257340, #2cd969); // Gradient for more dynamic appearance
+  color: $button-text-color;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 16px 40px;
+  border: 2px solid transparent;
+  border-radius: $button-border-radius;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  // Focus styles for accessibility
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(7, 186, 120, 0.5); // Light blue outline for focus state
+  }
+
+  // Hover state for interaction effect
+  &:hover {
+    background: linear-gradient(45deg, #0a7575, #4ea371); // Reverse the gradient on hover
+    transform: translateY(-4px); // Slight lift effect on hover
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); // Slightly bigger shadow for hover effect
+  }
+
+  // Active state for click effect
+  &:active {
+    transform: translateY(2px); // Button pressed effect
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Responsive styles (Optional)
+@media (max-width: 767px) {
+  .explore-btn {
+    font-size: 1rem; // Slightly smaller font size for mobile screens
+    padding: 12px 30px; // Adjust padding for smaller screens
+  }
+}

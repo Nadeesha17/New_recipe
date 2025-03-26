@@ -9,16 +9,18 @@
         <small class="text-muted">Separate multiple ingredients with commas.</small>
       </div>
       <div class="d-grid">
-        <%= f.submit "Search Recipes", class: "btn btn-primary btn-lg rounded-pill" %>
+        <%= f.submit "Search Recipes", class: "btn explore-btn btn-lg px-5 py-3 rounded-pill shadow-sm" %>
       </div>
     <% end %>
   </div>
 </div>
 
+<!-- Spacer between carousel and search results -->
+<div style="height: 50px;"></div>
 
-<% if @recipes.present? %>
-  <h2 class="text-center my-5">Recipes Found</h2>
-  <div class="container">
+<div class="container mt-5">
+  <% if @recipes.present? %>
+    <h2 class="text-center my-5"></h2>
     <div class="row justify-content-center">
       <% @recipes.each do |recipe| %>
         <div class="col-md-6 col-lg-4 mb-4">
@@ -26,14 +28,40 @@
             <img src="<%= recipe['image'] %>" class="card-img-top" alt="<%= recipe['title'] %>" style="height: 250px; object-fit: cover;">
             <div class="card-body d-flex flex-column justify-content-between">
               <h5 class="card-title text-center fw-bold"><%= recipe['title'] %></h5>
-              <p class="card-text text-center mb-2" style="font-size: 0.9rem;">Click below for details</p>
-              <%= link_to "View Details", recipe_path(id: recipe['id']), class: "btn btn-primary w-100 mt-2" %>
+              <p class="card-text text-center mb-2">Click below for details</p>
+              <%= link_to "See more", recipe_path(recipe['id']), class: "btn-see-more" %> <!-- Keeping original 'See More' button style -->
             </div>
           </div>
         </div>
       <% end %>
     </div>
+  <% else %>
+    <p class="text-center text-danger mt-4"></p>
+  <% end %>
+</div>
+
+
+<div class="container mt-5">
+  <h2 class="text-center my-5"></h2>
+  <div class="recipe-carousel-container" style="overflow-x: auto; white-space: nowrap; padding-bottom: 20px;">
+    <div class="d-flex" style="gap: 1rem;">
+      <% if @recipes && @recipes.any? %>
+        <!-- Display only the first 12 recipes for the carousel -->
+        <% @recipes.first(12).each do |recipe| %>
+          <div class="recipe-card" style="display: inline-block; min-width: 250px;">
+            <div class="card shadow-sm h-100" style="min-height: 350px;">
+              <img src="<%= recipe['image'] %>" class="card-img-top" alt="<%= recipe['title'] %>" style="height: 250px; object-fit: cover;">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <h5 class="card-title text-center fw-bold"><%= recipe['title'] %></h5>
+                <p class="card-text text-center mb-2">Click below for details</p>
+                <%= link_to "See more", recipe_path(recipe['id']), class: "btn-see-more" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p>No recipes available at the moment.</p>
+      <% end %>
+    </div>
   </div>
-<% else %>
-  <p class="text-center text-danger mt-4"></p>
-<% end %>
+</div>

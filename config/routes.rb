@@ -26,11 +26,17 @@ Rails.application.routes.draw do
   get "recipes/cooking" => "recipes#cooking", as: :recipe_cooking
   post "fetch_cooking_recipes", to: "recipes#cooking"
 
+
   # Routes for recipes
   resources :recipes, only: [:index, :show, :new, :create] do
     collection do
       post 'fetch_recipes', to: 'recipes#fetch_recipes', as: :fetch_recipes
       get 'added_recipes', to: 'recipes#added_recipes', as: :added_recipes
+
+    end
+    resources :comments, only: [:create] do
+      # Route to handle ratings on the comments
+      post 'ratings', to: 'comments#create_rating', as: :create_rating
     end
   end
 end
