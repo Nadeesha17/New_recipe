@@ -1,11 +1,9 @@
 <h1 class="text-center mb-4 explore-recipes-title">Explore Recipes</h1>
 
 <% if @recipes.present? %>
-<<<<<<< HEAD
+
   <h2 class="text-center my-5 recipes-found-title"></h2>
-=======
-  <h2 class="text-center my-5 recipes-found-title">Recipes Found</h2>
->>>>>>> e369bf734e4ecf6a54ce93069c870d281e5fba03
+
   <div class="container">
     <div class="row justify-content-center">
       <% @recipes.each do |recipe| %>
@@ -16,11 +14,7 @@
             <div class="card-body recipe-card-body">
               <h5 class="card-title text-center recipe-card-title"><%= recipe['title'] %></h5>
               <p class="card-text text-center mb-2 recipe-card-text">Click below for details</p>
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> e369bf734e4ecf6a54ce93069c870d281e5fba03
             <%= link_to "See more", recipe_path(id: recipe['id']), class: "btn-see-more" %>
 
             </div>
