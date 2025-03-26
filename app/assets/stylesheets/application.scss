@@ -49,3 +49,21 @@ body {
     height: 10vh;
   }
 }
+
+@media (max-width: 768px) {
+  body {
+    background-color: lightblue;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  body {
+    background-color: lightgreen;
+  }
+}
+
+@media (min-width: 1201px) {
+  body {
+    background-color: lightcoral;
+  }
+}
