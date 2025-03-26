@@ -9,15 +9,18 @@
         <small class="text-muted">Separate multiple restrictions with commas.</small>
       </div>
       <div class="d-grid">
-        <%= f.submit "Search Recipes", class: "btn btn-primary btn-lg rounded-pill" %>
+        <%= f.submit "Search Recipes", class: "btn explore-btn btn-lg px-5 py-3 rounded-pill shadow-sm" %>
       </div>
     <% end %>
   </div>
 </div>
 
+<!-- Spacer between carousel and search results -->
+<div style="height: 50px;"></div>
 
+<div class="container mt-8" >
 <% if @recipes.present? %>
-  <h2 class="text-center my-5">Recipes Found</h2>
+  <h2 class="text-center my-5"></h2>
   <div class="container">
     <div class="row justify-content-center">
       <% @recipes.each do |recipe| %>
@@ -27,7 +30,7 @@
             <div class="card-body d-flex flex-column justify-content-between">
               <h5 class="card-title text-center fw-bold"><%= recipe['title'] %></h5>
               <p class="card-text text-center mb-2" style="font-size: 0.9rem;">Click below for details</p>
-              <%= link_to "View Details", recipe_path(id: recipe['id']), class: "btn btn-primary w-100 mt-2" %>
+              <%= link_to "See more", recipe_path(id: recipe['id']), class: "btn-see-more" %>
             </div>
           </div>
         </div>
@@ -37,3 +40,25 @@
 <% else %>
   <p class="text-center text-danger mt-4"></p>
 <% end %>
+</div>
+
+
+<div class="container mt-5">
+  <h2 class="text-center my-5"></h2>
+  <div class="recipe-carousel-container" style="overflow-x: auto; white-space: nowrap; padding-bottom: 20px;">
+    <div class="d-flex" style="gap: 1rem;">
+      <% @recipes.first(12).each do |recipe| %> <!-- Display only the first 12 recipes for the carousel -->
+        <div class="recipe-card" style="display: inline-block; min-width: 250px;">
+          <div class="card shadow-sm h-100" style="min-height: 350px;">
+            <img src="<%= recipe['image'] %>" class="card-img-top" alt="<%= recipe['title'] %>" style="height: 250px; object-fit: cover;">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <h5 class="card-title text-center fw-bold"><%= recipe['title'] %></h5>
+              <p class="card-text text-center mb-2">Click below for details</p>
+              <%= link_to "See more", recipe_path(recipe['id']), class: "btn-see-more" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
