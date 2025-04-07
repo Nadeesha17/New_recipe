@@ -47,7 +47,9 @@
     <% if @recipe.is_a?(Recipe) %>
       <%= @recipe.instructions %>
     <% else %>
-      <%= @recipe['instructions'].presence || "Instructions not available." %>
+      
+      <%= (@recipe['instructions'].presence || "Instructions not available.").html_safe %>
+
     <% end %>
   </p>
 </div>
