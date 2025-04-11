@@ -5,7 +5,7 @@
     <%= form_with url: recipe_cooking_path, method: :get, local: true do |f| %>
       <div class="mb-4">
         <label class="form-label fw-bold">Enter Cooking Method(comma separated):</label>
-        <%= f.text_field :cooking, placeholder: "e.g., boil, fry", class: "form-control p-3 border-dark rounded-3", required: true %>
+        <%= f.text_field :cooking, placeholder: "e.g., boil", class: "form-control p-3 border-dark rounded-3", required: true %>
         <small class="text-muted">Separate multiple cooking method with commas.</small>
       </div>
       <div class="d-grid">
